@@ -18,8 +18,8 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "Problem solving app",
-  description: "An app to find the answer to all of your problems!",
+  title: "ClarityFlow",
+  description: "Earn your way to clarity",
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon-32x32.png",
@@ -40,21 +40,19 @@ export default function RootLayout({
         variables: {
           colorPrimary: "#00CDEC",
           colorText: "#ffffff",
+          colorBackground: "#09111c",
         },
       }}
     >
       <html lang="en" suppressHydrationWarning>
-        <body className={`${roboto.variable} antialiased`}>
+        <body className={`${roboto.variable} antialiased flex flex-col h-full`}>
           <ThemeProvider attribute="class" defaultTheme="dark">
-            <header className="flex justify-end items-center p-4 gap-4 h-16">
+            {/* <header className="flex justify-end items-center p-4 gap-4 h-16">
               <SignedOut>
                 <CustomSignInButton />
                 <SignUpButton />
               </SignedOut>
-              <SignedIn>
-                <UserButton />
-              </SignedIn>
-            </header>
+            </header> */}
             {children}
           </ThemeProvider>
         </body>
