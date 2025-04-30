@@ -1,0 +1,12 @@
+import { ClarityForm } from "@/components/ClarityForm";
+import React from "react";
+
+const ClarityPage = () => {
+  return (
+    <div className="max-w-3xl w-full mx-auto flex flex-col gap-10">
+      <ClarityForm />
+    </div>
+  );
+};
+
+export default ClarityPage;

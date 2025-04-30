@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "./ui/Sidebar";
-import { IconHome, IconChartDots2 } from "@tabler/icons-react";
+import { IconListDetails, IconChartDots2 } from "@tabler/icons-react";
 import { motion } from "motion/react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
@@ -14,13 +14,13 @@ export function DashboardSidebar() {
 
   const links = [
     {
-      label: "Dashboard",
-      href: "/dashboard",
+      label: "Tasks",
+      href: "/tasks",
       icon: (
-        <IconHome
+        <IconListDetails
           className={cn(
             iconClasses,
-            pathname === "/dashboard"
+            pathname === "/tasks"
               ? "text-[#00CDEC]"
               : "text-gray-900 dark:text-[#253D4D]"
           )}
