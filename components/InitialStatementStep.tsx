@@ -4,15 +4,16 @@ import { TypographyLead } from "./TypographyLead";
 import { Input } from "./ui/input";
 import { TypographyBlockquote } from "./TypographyBlockquote";
 import { TypographyH2 } from "./TypographyH2";
+import { ClarityFlow } from "@/lib/types";
 
 interface InitialStatementStepProps {
   initialStatement: string;
-  setInitialStatement: (statement: string) => void;
+  setClarityFlow: React.Dispatch<React.SetStateAction<ClarityFlow>>;
 }
 
 const InitialStatementStep = ({
   initialStatement,
-  setInitialStatement,
+  setClarityFlow,
 }: InitialStatementStepProps) => {
   return (
     <div className="space-y-12 max-h-[calc(100vh-200px)] overflow-y-auto">
@@ -27,7 +28,12 @@ const InitialStatementStep = ({
         <Input
           placeholder="e.g. I'm unsure how to prioritize tasks at work"
           value={initialStatement}
-          onChange={(e) => setInitialStatement(e.target.value)}
+          onChange={(e) =>
+            setClarityFlow((prev) => ({
+              ...prev,
+              initialStatement: e.target.value,
+            }))
+          }
         />
         <p className="text-sm text-muted-foreground">
           What do you want clarity on today?

@@ -3,13 +3,14 @@ import { TypographyLead } from "./TypographyLead";
 import { TypographyMuted } from "./TypographyMuted";
 import { Input } from "./ui/input";
 import { TypographyH2 } from "./TypographyH2";
+import type { ClarityFlow } from "@/lib/types";
 
 interface FiveWhysProps {
   gaps: string[];
-  setRootCauses: React.Dispatch<React.SetStateAction<string[]>>;
+  setClarityFlow: React.Dispatch<React.SetStateAction<ClarityFlow>>;
 }
 
-const FiveWhys = ({ gaps, setRootCauses }: FiveWhysProps) => {
+const FiveWhys = ({ gaps, setClarityFlow }: FiveWhysProps) => {
   const [whyChains, setWhyChains] = useState<string[][]>([]);
 
   useEffect(() => {
@@ -24,8 +25,12 @@ const FiveWhys = ({ gaps, setRootCauses }: FiveWhysProps) => {
       const nonEmpty = chain.filter((w) => w.trim() !== "");
       return nonEmpty[nonEmpty.length - 1] || "";
     });
-    setRootCauses(updatedRootCauses);
-  }, [whyChains, setRootCauses]);
+
+    setClarityFlow((prev) => ({
+      ...prev,
+      rootCauses: updatedRootCauses,
+    }));
+  }, [whyChains, setClarityFlow]);
 
   const handleWhyChange = (
     gapIndex: number,

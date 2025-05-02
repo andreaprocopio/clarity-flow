@@ -5,20 +5,31 @@ import { TypographyBlockquote } from "./TypographyBlockquote";
 import { TypographyMuted } from "./TypographyMuted";
 import { Input } from "./ui/input";
 import { whQuestionsType } from "@/lib/types";
+import { ClarityFlow } from "@/lib/types";
+import { useEffect } from "react";
 
 interface WhStepProps {
   initialStatement: string;
   whQuestions: whQuestionsType;
-  setWhQuestions: React.Dispatch<React.SetStateAction<whQuestionsType>>;
+  setClarityFlow: React.Dispatch<React.SetStateAction<ClarityFlow>>;
   whQuestionsResult: string;
 }
 
 const WhStep = ({
   initialStatement,
   whQuestions,
-  setWhQuestions,
+  setClarityFlow,
   whQuestionsResult,
 }: WhStepProps) => {
+  useEffect(() => {
+    const { when, what, who, how } = whQuestions;
+    const result = `${when}, ${what}, ${who}, ${how}`;
+    setClarityFlow((prev) => ({
+      ...prev,
+      whQuestionsResult: result,
+    }));
+  }, [whQuestions, setClarityFlow]);
+
   return (
     <div className="space-y-12 max-h-[calc(100vh-200px)] overflow-y-auto">
       <TypographyBlockquote text={initialStatement} />
@@ -30,9 +41,12 @@ const WhStep = ({
               placeholder="e.g. I need help figuring out task priorities"
               value={whQuestions.what}
               onChange={(e) =>
-                setWhQuestions((prev: whQuestionsType) => ({
+                setClarityFlow((prev) => ({
                   ...prev,
-                  what: e.target.value,
+                  whQuestions: {
+                    ...prev.whQuestions,
+                    what: e.target.value,
+                  },
                 }))
               }
             />
@@ -46,9 +60,12 @@ const WhStep = ({
               placeholder="e.g. My manager and my team are involved"
               value={whQuestions.who}
               onChange={(e) =>
-                setWhQuestions((prev) => ({
+                setClarityFlow((prev) => ({
                   ...prev,
-                  who: e.target.value,
+                  whQuestions: {
+                    ...prev.whQuestions,
+                    who: e.target.value,
+                  },
                 }))
               }
             />
@@ -62,9 +79,12 @@ const WhStep = ({
               placeholder="e.g. This has been ongoing since last month"
               value={whQuestions.when}
               onChange={(e) =>
-                setWhQuestions((prev) => ({
+                setClarityFlow((prev) => ({
                   ...prev,
-                  when: e.target.value,
+                  whQuestions: {
+                    ...prev.whQuestions,
+                    when: e.target.value,
+                  },
                 }))
               }
             />
@@ -78,9 +98,12 @@ const WhStep = ({
               placeholder="e.g. I struggle to decide what's most urgent"
               value={whQuestions.how}
               onChange={(e) =>
-                setWhQuestions((prev) => ({
+                setClarityFlow((prev) => ({
                   ...prev,
-                  how: e.target.value,
+                  whQuestions: {
+                    ...prev.whQuestions,
+                    how: e.target.value,
+                  },
                 }))
               }
             />

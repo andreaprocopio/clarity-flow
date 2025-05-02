@@ -1,22 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { TypographyBlockquote } from "./TypographyBlockquote";
 import { Input } from "./ui/input";
 import { TypographyLead } from "./TypographyLead";
 import { TypographyH2 } from "./TypographyH2";
+import type { ClarityFlow } from "@/lib/types";
 
 interface GapsStepProps {
+  idealSituation: string;
   whQuestionsResult: string;
-  setGaps: React.Dispatch<React.SetStateAction<string[]>>;
-  gapsInput: string;
-  setGapsInput: React.Dispatch<React.SetStateAction<string>>;
+  setClarityFlow: React.Dispatch<React.SetStateAction<ClarityFlow>>;
 }
 
 const GapsStep = ({
+  idealSituation,
   whQuestionsResult,
-  setGaps,
-  gapsInput,
-  setGapsInput,
+  setClarityFlow,
 }: GapsStepProps) => {
+  const [gapsInput, setGapsInput] = useState<string>();
+
   return (
     <div className="space-y-12 max-h-[calc(100vh-200px)] overflow-y-auto">
       <div className="space-y-4">
@@ -31,7 +32,16 @@ const GapsStep = ({
         <label className="block text-sm font-medium">
           Describe the ideal situation
         </label>
-        <Input placeholder="e.g. I can easily prioritize tasks and stay focused at work" />
+        <Input
+          placeholder="e.g. I can easily prioritize tasks and stay focused at work"
+          value={idealSituation}
+          onChange={(e) =>
+            setClarityFlow((prev) => ({
+              ...prev,
+              idealSituation: e.target.value,
+            }))
+          }
+        />
         <p className="text-sm text-muted-foreground">
           Imagine what things would be like if this problem no longer existed
         </p>
@@ -48,12 +58,14 @@ const GapsStep = ({
             onChange={(e) => {
               const value = e.target.value;
               setGapsInput(value);
-              setGaps(
-                value
+
+              setClarityFlow((prev) => ({
+                ...prev,
+                gaps: value
                   .split(",")
                   .map((item) => item.trim())
-                  .filter((item) => item)
-              );
+                  .filter((item) => item),
+              }));
             }}
           />
           <p className="text-sm text-muted-foreground">

@@ -21,6 +21,7 @@ export function ClarityForm() {
 
   return (
     <Carousel
+      orientation="horizontal"
       setApi={setApi}
       className="flex flex-col grow gap-10"
       opts={{
