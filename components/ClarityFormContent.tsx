@@ -12,10 +12,11 @@ import type { ClarityFlow } from "@/lib/types";
 import { clarityFlowInitialValue } from "@/lib/types";
 
 const ClarityFormContent = () => {
-  // TODO: here we need the general state, let's first create the type
   const [clarityFlow, setClarityFlow] = useState<ClarityFlow>(
     clarityFlowInitialValue
   );
+
+  console.log(clarityFlow);
 
   return (
     <CarouselContent>
@@ -57,15 +58,17 @@ const ClarityFormContent = () => {
 
       <CarouselItem>
         <BrainstormedActionStep
-          desiredOutcomes={desiredOutcomes}
-          setBrainstormedActions={setBrainstormedActions}
+          brainstormedActions={clarityFlow.brainstormedActions}
+          desiredOutcomes={clarityFlow.desiredOutcomes}
+          setClarityFlow={setClarityFlow}
         />
       </CarouselItem>
 
       <CarouselItem>
         <SmartActionStep
-          brainstormedActions={brainstormedActions}
-          setSmartActions={setSmartActions}
+          brainstormedActions={clarityFlow.brainstormedActions}
+          smartActions={clarityFlow.smartActions}
+          setClarityFlow={setClarityFlow}
         />
       </CarouselItem>
     </CarouselContent>

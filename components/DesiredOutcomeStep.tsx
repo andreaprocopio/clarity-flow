@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { TypographyLead } from "./TypographyLead";
 import { TypographyH2 } from "./TypographyH2";
 import { TypographyH4 } from "./TypographyH4";
 import { Input } from "./ui/input";
-import { TypographyBlockquote } from "./TypographyBlockquote";
 import type { ClarityFlow, DesiredOutcome } from "@/lib/types";
+import { desiredOutcomeDefaultValue } from "@/lib/types";
 
 interface DesiredOutcomeStepProps {
   desiredOutcomes: DesiredOutcome[];
@@ -17,32 +17,29 @@ const DesiredOutcomeStep = ({
   rootCauses,
   setClarityFlow,
 }: DesiredOutcomeStepProps) => {
-  const handleChange = (
+  const handleDesiredOutcomeChange = (
     index: number,
-    field: "mainGoal" | "completionCriteria" | "withoutProblem",
-    value: string
+    key: keyof DesiredOutcome,
+    value: string,
+    setClarityFlow: React.Dispatch<React.SetStateAction<ClarityFlow>>
   ) => {
-    const updated = [...answers];
-    updated[index][field] = value;
-
-    // Compose sentence
-    const { mainGoal, completionCriteria, withoutProblem } = updated[index];
-    const sentence = `To address the root cause "${rootCauses[index]}", I aim to "${mainGoal}". I’ll know it's resolved when "${completionCriteria}", and life would look like: "${withoutProblem}".`;
-
-    updated[index].combinedSentence = sentence;
-    setAnswers(updated);
-
-    // Update parent state
     setClarityFlow((prev) => {
-      const newOutcomes = [...prev.desiredOutcomes];
-      newOutcomes[index] = sentence;
-      return newOutcomes;
-    });
+      const newDesiredOutcomes = [...prev.desiredOutcomes];
 
-    setClarityFlow((prev) => ({
-      ...prev,
-      rootCauses: updatedRootCauses,
-    }));
+      if (!newDesiredOutcomes[index]) {
+        newDesiredOutcomes[index] = { ...desiredOutcomeDefaultValue };
+      }
+
+      newDesiredOutcomes[index] = {
+        ...newDesiredOutcomes[index],
+        [key]: value,
+      };
+
+      return {
+        ...prev,
+        desiredOutcomes: newDesiredOutcomes,
+      };
+    });
   };
 
   return (
@@ -58,58 +55,64 @@ const DesiredOutcomeStep = ({
           </p>
           <TypographyH4 text={rootCause} />
 
-          {answers[index]?.mainGoal !== undefined && (
-            <div className="space-y-2">
-              <label className="block text-sm font-medium">Main goal</label>
-              <Input
-                value={answers[index]?.mainGoal}
-                onChange={(e) =>
-                  handleChange(index, "mainGoal", e.target.value)
-                }
-                placeholder="e.g. Prioritize tasks more effectively"
-              />
-              <p className="text-sm text-muted-foreground">
-                What change do you want to achieve to overcome this root cause?
-              </p>
-            </div>
-          )}
-          {answers[index]?.completionCriteria !== undefined && (
-            <div className="space-y-2">
-              <label className="block text-sm font-medium">
-                Completion criteria
-              </label>
-              <Input
-                value={answers[index]?.completionCriteria}
-                onChange={(e) =>
-                  handleChange(index, "completionCriteria", e.target.value)
-                }
-                placeholder="e.g. I consistently complete my top 3 tasks each day"
-              />
-              <p className="text-sm text-muted-foreground">
-                What outcome will show this issue is resolved?
-              </p>
-            </div>
-          )}
-          {answers[index]?.withoutProblem !== undefined && (
-            <div className="space-y-2">
-              <label className="block text-sm font-medium">
-                Life without the problem
-              </label>
-              <Input
-                value={answers[index]?.withoutProblem}
-                onChange={(e) =>
-                  handleChange(index, "withoutProblem", e.target.value)
-                }
-                placeholder="e.g. I feel calm and in control of my workload"
-              />
-              <p className="text-sm text-muted-foreground">
-                What would your experience be like if this problem was gone?
-              </p>
-            </div>
-          )}
+          <div className="space-y-2">
+            <label className="block text-sm font-medium">Main goal</label>
+            <Input
+              value={desiredOutcomes[index]?.mainGoal || ""}
+              onChange={(e) =>
+                handleDesiredOutcomeChange(
+                  index,
+                  "mainGoal",
+                  e.target.value,
+                  setClarityFlow
+                )
+              }
+              placeholder="e.g. Prioritize tasks more effectively"
+            />
 
-          <div className="my-12">
-            <TypographyBlockquote text={answers[index]?.combinedSentence} />
+            <p className="text-sm text-muted-foreground">
+              What change do you want to achieve to overcome this root cause?
+            </p>
+          </div>
+          <div className="space-y-2">
+            <label className="block text-sm font-medium">
+              Completion criteria
+            </label>
+            <Input
+              value={desiredOutcomes[index]?.completionCriteria || ""}
+              onChange={(e) =>
+                handleDesiredOutcomeChange(
+                  index,
+                  "completionCriteria",
+                  e.target.value,
+                  setClarityFlow
+                )
+              }
+              placeholder="e.g. I consistently complete my top 3 tasks each day"
+            />
+            <p className="text-sm text-muted-foreground">
+              What outcome will show this issue is resolved?
+            </p>
+          </div>
+          <div className="space-y-2">
+            <label className="block text-sm font-medium">
+              Life without the problem
+            </label>
+            <Input
+              value={desiredOutcomes[index]?.withoutProblem || ""}
+              onChange={(e) =>
+                handleDesiredOutcomeChange(
+                  index,
+                  "withoutProblem",
+                  e.target.value,
+                  setClarityFlow
+                )
+              }
+              placeholder="e.g. I feel calm and in control of my workload"
+            />
+            <p className="text-sm text-muted-foreground">
+              What would your experience be like if this problem was gone?
+            </p>
           </div>
         </div>
       ))}

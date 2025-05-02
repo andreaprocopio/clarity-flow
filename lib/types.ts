@@ -11,6 +11,12 @@ export type DesiredOutcome = {
   withoutProblem: string;
 }
 
+export const desiredOutcomeDefaultValue: DesiredOutcome = {
+  mainGoal: "",
+  completionCriteria: "",
+  withoutProblem: ""
+}
+
 export type BrainstormedAction = {
   actions: string;
   whatHasWorked: string;
@@ -19,12 +25,28 @@ export type BrainstormedAction = {
   simplestStep: string;
 }
 
+export const brainstormedActionDefaultValue: BrainstormedAction = {
+  actions: "",
+  whatHasWorked: "",
+  whatCouldGoWrong: "",
+  externalResources: "",
+  simplestStep: "",
+}
+
 export type SmartAction = {
   isTaskSpecific: string;
   isTaskMeasurable: string;
   isTaskAchievable: string;
   isTaskRelevant: string;
   isTaskTimeBound: string;
+}
+
+export const smartActionDefaultValue: SmartAction = {
+  isTaskSpecific: "",
+  isTaskMeasurable: "",
+  isTaskAchievable: "",
+  isTaskRelevant: "",
+  isTaskTimeBound: "",
 }
 
 export type ClarityFlow = {

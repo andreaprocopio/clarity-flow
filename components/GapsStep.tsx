@@ -16,7 +16,7 @@ const GapsStep = ({
   whQuestionsResult,
   setClarityFlow,
 }: GapsStepProps) => {
-  const [gapsInput, setGapsInput] = useState<string>();
+  const [gapsInput, setGapsInput] = useState<string>("");
 
   return (
     <div className="space-y-12 max-h-[calc(100vh-200px)] overflow-y-auto">
