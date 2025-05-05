@@ -34,19 +34,23 @@ export const brainstormedActionDefaultValue: BrainstormedAction = {
 }
 
 export type SmartAction = {
-  isTaskSpecific: string;
-  isTaskMeasurable: string;
-  isTaskAchievable: string;
-  isTaskRelevant: string;
-  isTaskTimeBound: string;
+  taskTitle: string;
+  specificDescription: string;
+  measurableCriteria: string;
+  whyIsAchievable: string;
+  whyIsRelevant: string;
+  startDate: Date;
+  endDate: Date;
 }
 
 export const smartActionDefaultValue: SmartAction = {
-  isTaskSpecific: "",
-  isTaskMeasurable: "",
-  isTaskAchievable: "",
-  isTaskRelevant: "",
-  isTaskTimeBound: "",
+  taskTitle: "",
+  specificDescription: "",
+  measurableCriteria: "",
+  whyIsAchievable: "",
+  whyIsRelevant: "",
+  startDate: new Date(),
+  endDate: new Date()
 }
 
 export type ClarityFlow = {

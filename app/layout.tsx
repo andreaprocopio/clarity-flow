@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
+
 import { ThemeProvider } from "@/components/theme-provider";
 import {
   ClerkProvider,
@@ -54,6 +56,7 @@ export default function RootLayout({
               </SignedOut>
             </header> */}
             {children}
+            <Toaster />
           </ThemeProvider>
         </body>
       </html>

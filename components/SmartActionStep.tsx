@@ -5,6 +5,7 @@ import { TypographyH4 } from "./TypographyH4";
 import { Input } from "./ui/input";
 import { BrainstormedAction, SmartAction, ClarityFlow } from "@/lib/types";
 import { smartActionDefaultValue } from "@/lib/types";
+import { TaskDatePicker } from "./TaskDatePicker";
 
 interface SmartActionStepProps {
   smartActions: SmartAction[];
@@ -20,7 +21,7 @@ const SmartActionStep = ({
   const handleSmartActionChange = (
     index: number,
     key: keyof SmartAction,
-    value: string,
+    value: string | Date,
     setClarityFlow: React.Dispatch<React.SetStateAction<ClarityFlow>>
   ) => {
     setClarityFlow((prev) => {
@@ -55,15 +56,33 @@ const SmartActionStep = ({
           </p>
           <TypographyH4 text={brainstormedAction.actions} />
           <div className="space-y-2">
+            <label className="block text-sm font-medium">Task title</label>
+            <Input
+              value={smartActions[index]?.taskTitle || ""}
+              onChange={(e) =>
+                handleSmartActionChange(
+                  index,
+                  "taskTitle",
+                  e.target.value,
+                  setClarityFlow
+                )
+              }
+              placeholder="e.g. Prioritize tasks"
+            />
+            <p className="text-sm text-muted-foreground">
+              Give this task a clear and concise title
+            </p>
+          </div>
+          <div className="space-y-2">
             <label className="block text-sm font-medium">
               What exactly needs to be done?
             </label>
             <Input
-              value={smartActions[index]?.isTaskSpecific || ""}
+              value={smartActions[index]?.specificDescription || ""}
               onChange={(e) =>
                 handleSmartActionChange(
                   index,
-                  "isTaskSpecific",
+                  "specificDescription",
                   e.target.value,
                   setClarityFlow
                 )
@@ -79,11 +98,11 @@ const SmartActionStep = ({
               How will you know it’s done?
             </label>
             <Input
-              value={smartActions[index]?.isTaskMeasurable || ""}
+              value={smartActions[index]?.measurableCriteria || ""}
               onChange={(e) =>
                 handleSmartActionChange(
                   index,
-                  "isTaskMeasurable",
+                  "measurableCriteria",
                   e.target.value,
                   setClarityFlow
                 )
@@ -99,11 +118,11 @@ const SmartActionStep = ({
               Why is this action realistic for you right now?
             </label>
             <Input
-              value={smartActions[index]?.isTaskAchievable || ""}
+              value={smartActions[index]?.whyIsAchievable || ""}
               onChange={(e) =>
                 handleSmartActionChange(
                   index,
-                  "isTaskAchievable",
+                  "whyIsAchievable",
                   e.target.value,
                   setClarityFlow
                 )
@@ -120,11 +139,11 @@ const SmartActionStep = ({
               How does this task help address the root problem?
             </label>
             <Input
-              value={smartActions[index]?.isTaskRelevant || ""}
+              value={smartActions[index]?.whyIsRelevant || ""}
               onChange={(e) =>
                 handleSmartActionChange(
                   index,
-                  "isTaskRelevant",
+                  "whyIsRelevant",
                   e.target.value,
                   setClarityFlow
                 )
@@ -136,25 +155,27 @@ const SmartActionStep = ({
               this specific task move you closer to a solution?
             </p>
           </div>
-          <div className="space-y-2">
-            <label className="block text-sm font-medium">
-              When will this be done?
-            </label>
-            <Input
-              value={smartActions[index]?.isTaskTimeBound || ""}
-              onChange={(e) =>
-                handleSmartActionChange(
-                  index,
-                  "isTaskTimeBound",
-                  e.target.value,
-                  setClarityFlow
-                )
-              }
-              placeholder="e.g. Finish by 6 PM today"
-            />
-            <p className="text-sm text-muted-foreground">
-              Is it Time-bound? Set a clear deadline or timeframe.
-            </p>
+          <div className="flex flex-col gap-2 sm:gap-8 sm:flex-row w-full">
+            <div className="space-y-2 basis-1/2">
+              <label className="block text-sm font-medium">Start date</label>
+              <TaskDatePicker
+                index={index}
+                propsDate={smartActions[index]?.startDate || new Date()}
+                handleSmartActionChange={handleSmartActionChange}
+                type="startDate"
+                setClarityFlow={setClarityFlow}
+              />
+            </div>
+            <div className="space-y-2 basis-1/2">
+              <label className="block text-sm font-medium">End date</label>
+              <TaskDatePicker
+                index={index}
+                propsDate={smartActions[index]?.endDate || new Date()}
+                handleSmartActionChange={handleSmartActionChange}
+                type="endDate"
+                setClarityFlow={setClarityFlow}
+              />
+            </div>
           </div>
         </div>
       ))}

@@ -1,22 +1,47 @@
 "use client";
 import { Carousel, type CarouselApi } from "@/components/ui/carousel";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import ClarityFormContent from "./ClarityFormContent";
+import { clarityFlowInitialValue } from "@/lib/types";
+import type { ClarityFlow } from "@/lib/types";
+import CreateTaskButton from "./CreateTaskButton";
 
 export function ClarityForm() {
+  const [clarityFlow, setClarityFlow] = useState<ClarityFlow>(
+    clarityFlowInitialValue
+  );
+
   const [api, setApi] = useState<CarouselApi | null>(null);
+  const [canScrollPrev, setCanScrollPrev] = useState(false);
+  const [canScrollNext, setCanScrollNext] = useState(false);
+
+  useEffect(() => {
+    if (!api) return;
+
+    const updateScrollState = () => {
+      setCanScrollPrev(api.canScrollPrev());
+      setCanScrollNext(api.canScrollNext());
+    };
+
+    // Call once on mount
+    updateScrollState();
+
+    // Subscribe to changes
+    api.on("select", updateScrollState);
+
+    // Cleanup on unmount or API change
+    return () => {
+      api.off("select", updateScrollState);
+    };
+  }, [api]);
 
   const scrollPrev = () => {
-    if (api) {
-      api.scrollPrev();
-    }
+    if (api) api.scrollPrev();
   };
 
   const scrollNext = () => {
-    if (api) {
-      api.scrollNext();
-    }
+    if (api) api.scrollNext();
   };
 
   return (
@@ -31,12 +56,27 @@ export function ClarityForm() {
         loop: false,
       }}
     >
-      <ClarityFormContent />
-      <div className="flex items-center justify-between  mt-auto">
-        <Button onClick={scrollPrev} variant="secondary">
+      <ClarityFormContent
+        clarityFlow={clarityFlow}
+        setClarityFlow={setClarityFlow}
+      />
+      <div className="flex items-center justify-between mt-auto">
+        <Button
+          onClick={scrollPrev}
+          variant="secondary"
+          disabled={!canScrollPrev}
+          className={canScrollPrev ? "cursor-pointer" : "cursor-not-allowed"}
+        >
           Back
         </Button>
-        <Button onClick={scrollNext}>Continue</Button>
+
+        {canScrollNext ? (
+          <Button onClick={scrollNext} className="select-none cursor-pointer">
+            Continue
+          </Button>
+        ) : (
+          <CreateTaskButton clarityFlow={clarityFlow} />
+        )}
       </div>
     </Carousel>
   );

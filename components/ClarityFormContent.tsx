@@ -1,6 +1,6 @@
 "use client";
 import { CarouselContent, CarouselItem } from "./ui/carousel";
-import React, { useState } from "react";
+import React from "react";
 import InitialStatementStep from "./InitialStatementStep";
 import WhStep from "./WhStep";
 import GapsStep from "./GapsStep";
@@ -9,15 +9,16 @@ import DesiredOutcomeStep from "./DesiredOutcomeStep";
 import BrainstormedActionStep from "./BrainstormedActionStep";
 import SmartActionStep from "./SmartActionStep";
 import type { ClarityFlow } from "@/lib/types";
-import { clarityFlowInitialValue } from "@/lib/types";
 
-const ClarityFormContent = () => {
-  const [clarityFlow, setClarityFlow] = useState<ClarityFlow>(
-    clarityFlowInitialValue
-  );
+interface ClarityFormContentProps {
+  clarityFlow: ClarityFlow;
+  setClarityFlow: React.Dispatch<React.SetStateAction<ClarityFlow>>;
+}
 
-  console.log(clarityFlow);
-
+const ClarityFormContent = ({
+  clarityFlow,
+  setClarityFlow,
+}: ClarityFormContentProps) => {
   return (
     <CarouselContent>
       <CarouselItem>
