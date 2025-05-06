@@ -21,7 +21,7 @@ export const TaskTable = async () => {
 
 export const TaskTableSkeleton = () => {
   return (
-    <div className="w-6xl">
+    <div>
       <Skeleton className="w-full h-[450px] md:-[500px] rounded-2" />
     </div>
   );

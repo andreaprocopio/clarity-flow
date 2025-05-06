@@ -4,7 +4,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
-import { Calendar as CalendarIcon, Loader2 } from "lucide-react"; // Import Loader2 for spinner
+import { Calendar as CalendarIcon, Loader2 } from "lucide-react";
 import { updateTask } from "@/lib/actions/updateTask";
 import {
   Popover,
@@ -15,6 +15,7 @@ import {
 import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
 
 interface TaskContentProps {
   task: Task;
@@ -31,7 +32,6 @@ const TaskContent = ({ task }: TaskContentProps) => {
   const [loading, setLoading] = useState(false); // loading state
 
   const handleSave = async () => {
-    setLoading(true);
     const updatedTask = {
       ...task,
       title: title,
@@ -39,9 +39,15 @@ const TaskContent = ({ task }: TaskContentProps) => {
       start_date: startDate,
       end_date: endDate,
     };
-
-    await updateTask(updatedTask);
+    setLoading(true);
+    const result = await updateTask(updatedTask);
     setLoading(false);
+
+    if (result.success) {
+      toast.success("Task edited successfully.");
+    } else {
+      toast.error("Failed to edit task.");
+    }
   };
 
   return (

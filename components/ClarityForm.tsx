@@ -24,13 +24,24 @@ export function ClarityForm() {
       setCanScrollNext(api.canScrollNext());
     };
 
-    // Call once on mount
     updateScrollState();
-
-    // Subscribe to changes
     api.on("select", updateScrollState);
 
-    // Cleanup on unmount or API change
+    // Impedisce lo scorrimento quando si preme tab
+    api.slideNodes().forEach((slideNode, slideIndex) => {
+      slideNode.addEventListener(
+        "focus",
+        () => {
+          api.rootNode().scrollLeft = 0;
+          api.slideNodes()[slideIndex].blur();
+        },
+        {
+          passive: true,
+          capture: true,
+        }
+      );
+    });
+
     return () => {
       api.off("select", updateScrollState);
     };
