@@ -3,7 +3,7 @@ import React from "react";
 
 const ClarityPage = () => {
   return (
-    <div className="max-w-3xl w-full mx-auto flex flex-col gap-10">
+    <div className="max-w-lg lg:max-w-3xl xl:max-w-5xl w-full mx-auto flex flex-col gap-10">
       <ClarityForm />
     </div>
   );
