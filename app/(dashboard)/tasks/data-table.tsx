@@ -70,7 +70,7 @@ export function DataTable<TData, TValue>({
 "
         >
           <Link href="/clarity">
-            <Button className="cursor-pointer">New Task +</Button>
+            <Button className="cursor-pointer">Help me clarify +</Button>
           </Link>
 
           <Input

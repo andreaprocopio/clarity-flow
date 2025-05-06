@@ -44,6 +44,24 @@ const TaskContext = ({ task }: TaskContextProps) => {
           content={task.simplest_step}
         />
       )}
+      {task.achievable_description && (
+        <TaskInfoCollapsibleSection
+          title="Why is it achievable?"
+          content={task.achievable_description}
+        />
+      )}
+      {task.relevance_description && (
+        <TaskInfoCollapsibleSection
+          title="Why does it address the root problem?"
+          content={task.relevance_description}
+        />
+      )}
+      {task.measurable_completion_criteria && (
+        <TaskInfoCollapsibleSection
+          title="Will be completed when"
+          content={task.measurable_completion_criteria}
+        />
+      )}
     </div>
   );
 };

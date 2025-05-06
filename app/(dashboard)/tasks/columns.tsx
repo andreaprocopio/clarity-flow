@@ -146,6 +146,14 @@ export const columns: ColumnDef<Task>[] = [
     },
   },
   {
+    id: "view_details",
+    cell: ({ row }) => {
+      const task = row.original;
+
+      return <TaskDetails task={task} />;
+    },
+  },
+  {
     id: "actions",
     cell: ({ row }) => {
       const task = row.original;
@@ -174,14 +182,6 @@ export const columns: ColumnDef<Task>[] = [
           </DropdownMenuContent>
         </DropdownMenu>
       );
-    },
-  },
-  {
-    id: "view_details",
-    cell: ({ row }) => {
-      const task = row.original;
-
-      return <TaskDetails task={task} />;
     },
   },
 ];
