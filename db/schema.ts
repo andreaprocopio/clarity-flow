@@ -3,7 +3,7 @@ import { InferSelectModel } from 'drizzle-orm';
 
 export type Task = InferSelectModel<typeof tasksTable>;
 
-export const TASK_STATE_ENUM = pgEnum('task_state', ["TO_DO", "PAST_DUE", "FAILED", "COMPLETED"]);
+export const TASK_STATE_ENUM = pgEnum('task_state', ["TO_DO", "COMPLETED"]);
 
 export const tasksTable = pgTable("tasks", {
   id: uuid('id').notNull().primaryKey().defaultRandom().unique(),

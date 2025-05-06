@@ -6,13 +6,13 @@ import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/theme-provider";
 import {
   ClerkProvider,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
+  // SignUpButton,
+  // SignedIn,
+  // SignedOut,
+  // UserButton,
 } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
-import CustomSignInButton from "@/components/CustomSignInButton";
+// import CustomSignInButton from "@/components/CustomSignInButton";
 
 const roboto = Roboto({
   variable: "--font-roboto",
