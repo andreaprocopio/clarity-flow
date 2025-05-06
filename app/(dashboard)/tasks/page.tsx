@@ -13,7 +13,7 @@ const TasksPage = async () => {
       <Suspense fallback={<TasksListSkeleton />}>
         <TasksList />
       </Suspense>
-      <Link href="/clarity">
+      <Link href="/clarity" className="!w-fit">
         <Button className="cursor-pointer">New Task +</Button>
       </Link>
     </div>

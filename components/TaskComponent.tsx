@@ -4,10 +4,10 @@ import { Task } from "@/db/schema";
 import React, { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { taskStateToUI } from "@/lib/taskStateMapping";
+import { Separator } from "@/components/ui/separator";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -21,6 +21,10 @@ import {
 import { cn } from "@/lib/utils";
 import TaskPopover from "./TaskPopover";
 import { TypographyInlineCode } from "./TypographyInlineCode";
+import TaskInfoCollapsibleSection from "./TaskInfoCollapsibleSection";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { TypographyH3 } from "./TypographyH3";
+import { TypographyH4 } from "./TypographyH4";
 
 interface TaskProps {
   task: Task;
@@ -68,14 +72,60 @@ const TaskComponent = ({ task }: TaskProps) => {
         </CardFooter>
       </Card>
 
-      <DialogContent>
+      <DialogContent className="p-12">
         <DialogHeader>
-          <DialogTitle>Task details</DialogTitle>
-          <DialogDescription>
-            Qui puoi visualizzare e modificare i dettagli della task.
-          </DialogDescription>
-          {/* Inserisci altri contenuti del dialog */}
+          <DialogTitle>
+            <div className="flex flex-col md:flex-row gap-4 md:gap-0 items-center md:justify-between">
+              <TypographyH3 text={task.title} />
+              <Badge className={cn("text-white", taskStateBadge.class)}>
+                {taskStateBadge.label}
+              </Badge>
+            </div>
+          </DialogTitle>
         </DialogHeader>
+
+        <Separator />
+
+        <ScrollArea className="h-[300px] w-full">
+          <div className="py-4">
+            <TaskInfoCollapsibleSection title="Gap" content={task.gap} />
+            <TaskInfoCollapsibleSection
+              title="Root Cause"
+              content={task.root_cause}
+            />
+            {task.what_has_worked_before && (
+              <TaskInfoCollapsibleSection
+                title="What has worked before?"
+                content={task.what_has_worked_before}
+              />
+            )}
+            {task.what_could_go_wrong && (
+              <TaskInfoCollapsibleSection
+                title="What could go wrong?"
+                content={task.what_could_go_wrong}
+              />
+            )}
+            {task.without_problem && (
+              <TaskInfoCollapsibleSection
+                title="Without problem scenario"
+                content={task.without_problem}
+              />
+            )}
+            {task.external_resources && (
+              <TaskInfoCollapsibleSection
+                title="External resources"
+                content={task.external_resources}
+              />
+            )}
+            {task.simplest_step && (
+              <TaskInfoCollapsibleSection
+                title="Simple first step"
+                content={task.simplest_step}
+              />
+            )}
+          </div>
+        </ScrollArea>
+        <Separator />
       </DialogContent>
     </Dialog>
   );
