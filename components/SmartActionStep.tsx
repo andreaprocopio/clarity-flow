@@ -6,6 +6,7 @@ import { Input } from "./ui/input";
 import { BrainstormedAction, SmartAction, ClarityFlow } from "@/lib/types";
 import { smartActionDefaultValue } from "@/lib/types";
 import { TaskDatePicker } from "./TaskDatePicker";
+import { IconPicker, IconName } from "@/components/ui/icon-picker";
 
 interface SmartActionStepProps {
   smartActions: SmartAction[];
@@ -55,6 +56,19 @@ const SmartActionStep = ({
             Brainstormed Action #{index + 1}
           </p>
           <TypographyH4 text={brainstormedAction.actions} />
+          <div className="space-y-2">
+            <label className="block text-sm font-medium">Task icon</label>
+            <IconPicker
+              value={
+                (smartActions[index]?.iconName as IconName) ||
+                ("list-todo" as IconName)
+              }
+              onValueChange={(icon) =>
+                handleSmartActionChange(index, "iconName", icon, setClarityFlow)
+              }
+              className="w-fit"
+            />
+          </div>
           <div className="space-y-2">
             <label className="block text-sm font-medium">Task title</label>
             <Input

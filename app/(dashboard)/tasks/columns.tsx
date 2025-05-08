@@ -25,8 +25,20 @@ import {
   TooltipContent,
 } from "@/components/ui/tooltip";
 import TaskDetails from "./TaskDetails";
+import TaskIcon from "@/components/TaskIcon";
+import { IconName } from "lucide-react/dynamic";
 
 export const columns: ColumnDef<Task>[] = [
+  {
+    accessorKey: "icon",
+    header: () => <TableHeader>Icon</TableHeader>,
+    cell: ({ row }) => {
+      const task = row.original;
+      const icon = task.icon;
+
+      return <TaskIcon iconName={icon as IconName} />;
+    },
+  },
   {
     accessorKey: "title",
     header: () => <TableHeader>Title</TableHeader>,

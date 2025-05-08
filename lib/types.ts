@@ -41,6 +41,7 @@ export type SmartAction = {
   whyIsRelevant: string;
   startDate: Date;
   endDate: Date;
+  iconName: string;
 }
 
 export const smartActionDefaultValue: SmartAction = {
@@ -49,6 +50,7 @@ export const smartActionDefaultValue: SmartAction = {
   measurableCriteria: "",
   whyIsAchievable: "",
   whyIsRelevant: "",
+  iconName: "list-todo",
   startDate: new Date(),
   endDate: new Date()
 }

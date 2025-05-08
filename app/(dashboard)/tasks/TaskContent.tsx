@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
 import { Calendar as CalendarIcon, Loader2 } from "lucide-react";
 import { updateTask } from "@/lib/actions/updateTask";
+import { IconPicker } from "@/components/ui/icon-picker";
+import { IconName } from "@/components/ui/icon-picker";
 import {
   Popover,
   PopoverContent,
@@ -30,11 +32,13 @@ const TaskContent = ({ task }: TaskContentProps) => {
   const [startDate, setStartDate] = useState<Date>(task.start_date);
   const [endDate, setEndDate] = useState<Date>(task.end_date);
   const [loading, setLoading] = useState(false); // loading state
+  const [icon, setIcon] = useState<IconName>(task.icon as IconName);
 
   const handleSave = async () => {
     const updatedTask = {
       ...task,
       title: title,
+      icon: icon,
       specific_description: specificDescription,
       start_date: startDate,
       end_date: endDate,
@@ -52,6 +56,14 @@ const TaskContent = ({ task }: TaskContentProps) => {
 
   return (
     <div className="space-y-4">
+      <div className="space-y-2">
+        <label className="block text-sm font-medium">Task icon</label>
+        <IconPicker
+          value={icon}
+          onValueChange={(icon) => setIcon(icon)}
+          className="w-fit"
+        />
+      </div>
       <div className="space-y-2">
         <Label>Title</Label>
         <Input value={title} onChange={(e) => setTitle(e.target.value)} />

@@ -40,6 +40,7 @@ function buildTasksFromClarityFlow(userId: string, flow: ClarityFlow) {
       whyIsRelevant,
       startDate,
       endDate,
+      iconName
     } = action
 
     const {
@@ -65,6 +66,7 @@ function buildTasksFromClarityFlow(userId: string, flow: ClarityFlow) {
       relevance_description: whyIsRelevant,
       start_date: startDate,
       end_date: endDate,
+      icon: iconName
     }
   })
 }

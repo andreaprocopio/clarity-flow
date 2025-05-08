@@ -16,6 +16,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { TypographySmall } from "@/components/TypographySmall";
 import { TypographyMuted } from "@/components/TypographyMuted";
 import { Separator } from "@/components/ui/separator";
+import TaskIcon from "@/components/TaskIcon";
+import { IconName } from "lucide-react/dynamic";
 
 const getRecentlyCompleted = async (userId: string): Promise<Task[]> => {
   const now = new Date();
@@ -62,16 +64,13 @@ export const RecentlyCompleted = async () => {
 
               return (
                 <div key={task.id}>
-                  <Separator className="my-3" />
-                  <div className="flex flex-wrap items-start justify-between gap-2">
-                    <div className="space-y-2">
+                  <Separator className="my-4" />
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <div className="flex items-center gap-4">
+                      <TaskIcon iconName={task.icon as IconName} />
                       <TypographySmall text={task.title} />
-                      <TypographyMuted
-                        text={task.specific_description!}
-                        className="truncate max-w-xs"
-                      />
                     </div>
-                    <TypographyMuted text={relative} />
+                    <TypographyMuted text={relative} className="shrink-0" />
                   </div>
                 </div>
               );

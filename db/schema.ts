@@ -24,5 +24,6 @@ export const tasksTable = pgTable("tasks", {
   end_date: timestamp('end_date').notNull(),
   completed_at: timestamp('completed_at', { withTimezone: true }),
   created_at: timestamp('created_at', { withTimezone: true }).defaultNow(),
-  task_state: TASK_STATE_ENUM().notNull().default("TO_DO")
+  task_state: TASK_STATE_ENUM().notNull().default("TO_DO"),
+  icon: varchar({ length: 255 }).notNull().default("list-todo"),
 });

@@ -12,8 +12,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { IconName } from "lucide-react/dynamic";
 import { Skeleton } from "@/components/ui/skeleton";
-import { TypographyP } from "@/components/TypographyP";
+import TaskIcon from "@/components/TaskIcon";
+import { TypographySmall } from "@/components/TypographySmall";
 import { TypographyMuted } from "@/components/TypographyMuted";
 import { Separator } from "@/components/ui/separator";
 
@@ -62,15 +64,16 @@ export const PastDues = async () => {
 
               return (
                 <div key={task.id}>
-                  <Separator className="my-3" />
-                  <div className="flex items-start justify-between">
-                    <div className="space-y-2">
-                      <TypographyP text={task.title} />
-                      <TypographyMuted
-                        text={`Expected due date: ${relative}`}
-                        className="truncate max-w-xs"
-                      />
+                  <Separator className="my-4" />
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <div className="flex items-center gap-4">
+                      <TaskIcon iconName={task.icon as IconName} />
+                      <TypographySmall text={task.title} />
                     </div>
+                    <TypographyMuted
+                      text={`Expected due date: ${relative}`}
+                      className="shrink-0"
+                    />
                   </div>
                 </div>
               );

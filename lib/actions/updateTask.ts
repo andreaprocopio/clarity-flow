@@ -16,6 +16,7 @@ export const updateTask = async (updatedTask: Task) => {
       .update(tasksTable)
       .set({
         title: updatedTask.title,
+        icon: updatedTask.icon,
         specific_description: updatedTask.specific_description,
         start_date: updatedTask.start_date,
         end_date: updatedTask.end_date,
