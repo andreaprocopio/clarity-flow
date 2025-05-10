@@ -31,8 +31,8 @@ const getPastDues = async (userId: string): Promise<Task[]> => {
         isNull(tasksTable.completed_at),
         lt(tasksTable.end_date, now)
       )
-    );
-
+    )
+    .orderBy(tasksTable.end_date);
   return tasks;
 };
 

@@ -2,7 +2,7 @@ import React from "react";
 import { currentUser } from "@clerk/nextjs/server";
 import { db } from "@/db";
 import { Task, tasksTable } from "@/db/schema";
-import { and, eq, gt, isNotNull } from "drizzle-orm";
+import { and, eq, gt, isNotNull, desc } from "drizzle-orm";
 import { subDays, startOfMonth, formatDistanceToNow } from "date-fns";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
@@ -31,8 +31,8 @@ const getRecentlyCompleted = async (userId: string): Promise<Task[]> => {
         isNotNull(tasksTable.completed_at),
         gt(tasksTable.completed_at, startOfMonth(subDays(now, 7)))
       )
-    );
-
+    )
+    .orderBy(desc(tasksTable.completed_at));
   return tasks;
 };
 

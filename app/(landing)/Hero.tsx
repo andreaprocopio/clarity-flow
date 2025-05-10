@@ -3,6 +3,7 @@ import { WavyBackground } from "@/components/ui/wavy-background";
 import HomepageButton from "@/components/HomepageButton";
 import { Button } from "@/components/ui/button";
 import { CornerRightDown } from "lucide-react";
+import Image from "next/image";
 
 const Hero = () => {
   return (
@@ -16,7 +17,15 @@ const Hero = () => {
         <div className="space-y-12 px-6 py-24 sm:py-32 lg:px-0">
           <div className="text-center space-y-6">
             <p className="text-3xl md:text-4xl lg:text-6xl text-white font-bold">
-              Start with clarity, not chaos.
+              Start with clarity{" "}
+              <Image
+                src="/clarityflow.png"
+                alt="ClarityFlow logo"
+                width={60}
+                height={60}
+                className="inline-block"
+              />
+              ,<br className="md:hidden" /> not chaos.
             </p>
             <p className="text-base md:text-lg text-white font-normal inter-var max-w-2xl mx-auto">
               ClarityFlow turns confusion into action{" "}

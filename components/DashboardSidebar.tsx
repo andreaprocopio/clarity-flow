@@ -86,6 +86,7 @@ export const Logo = () => {
         width={20}
         height={20}
         alt="clarity flow logo"
+        quality={100}
         className="h-5 w-5 shrink-0"
       />
       <motion.span
