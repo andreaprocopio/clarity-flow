@@ -4,15 +4,8 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 
 import { ThemeProvider } from "@/components/theme-provider";
-import {
-  ClerkProvider,
-  // SignUpButton,
-  // SignedIn,
-  // SignedOut,
-  // UserButton,
-} from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
-// import CustomSignInButton from "@/components/CustomSignInButton";
 
 const roboto = Roboto({
   variable: "--font-roboto",
@@ -49,12 +42,6 @@ export default function RootLayout({
       <html lang="en" suppressHydrationWarning>
         <body className={`${roboto.variable} antialiased flex flex-col h-full`}>
           <ThemeProvider attribute="class" defaultTheme="dark">
-            {/* <header className="flex justify-end items-center p-4 gap-4 h-16">
-              <SignedOut>
-                <CustomSignInButton />
-                <SignUpButton />
-              </SignedOut>
-            </header> */}
             {children}
             <Toaster />
           </ThemeProvider>

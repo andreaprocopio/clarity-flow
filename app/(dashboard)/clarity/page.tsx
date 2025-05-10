@@ -8,8 +8,8 @@ const ClarityPage = () => {
       <ClarityForm />
       <WavyBackground
         containerClassName="absolute top-0 left-0 bottom-0 right-0 -z-10 opacity-50"
-        backgroundFill="#030712"
-        colors={["#051417", "#0a292d", "#103d44", "#15525b", "#103d44"]}
+        backgroundFill="#090f1c"
+        colors={["#3aaec1", "#2b8391", "#1d5760", "#0e2c30", "#48daf1"]}
       />
     </div>
   );

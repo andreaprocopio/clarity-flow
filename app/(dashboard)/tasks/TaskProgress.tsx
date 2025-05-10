@@ -16,7 +16,5 @@ export function TaskProgress({ progressNumber }: TaskProgressProps) {
     return () => clearTimeout(timer);
   }, [progressNumber]);
 
-  return (
-    <Progress value={progress} className="min-w-[150px] md:min-w-[300px]" />
-  );
+  return <Progress value={progress} className="min-w-[150px]" />;
 }

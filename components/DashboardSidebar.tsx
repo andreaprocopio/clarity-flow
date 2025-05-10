@@ -7,6 +7,7 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { SignedIn, UserButton } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 export function DashboardSidebar() {
   const pathname = usePathname();
@@ -46,7 +47,7 @@ export function DashboardSidebar() {
   return (
     <div
       className={cn(
-        "flex flex-col overflow-hidden border-b md:border-b-0 md:border-r border-neutral-200 md:flex-row dark:border-neutral-700 py-3 md:py-20 md:pt-12"
+        "flex flex-col md:sticky md:top-0 overflow-hidden border-b md:border-b-0 md:border-r border-neutral-200 md:flex-row dark:border-neutral-700 py-3 md:py-20 md:pt-12 md:max-h-screen"
       )}
     >
       <Sidebar open={open} setOpen={setOpen}>
@@ -76,7 +77,10 @@ export function DashboardSidebar() {
 
 export const Logo = () => {
   return (
-    <div className="relative z-20 flex items-center space-x-2 py-1 text-sm font-normal text-black">
+    <Link
+      href="/?noRedirect=true"
+      className="relative z-20 flex items-center space-x-2 py-1 text-sm font-normal text-black cursor-pointer"
+    >
       <Image
         src="/clarityflow.png"
         width={20}
@@ -91,7 +95,7 @@ export const Logo = () => {
       >
         ClarityFlow
       </motion.span>
-    </div>
+    </Link>
   );
 };
 
