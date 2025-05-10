@@ -4,6 +4,7 @@ import { FloatingNavbar } from "./FloatingNavbar";
 import Hero from "./Hero";
 import { currentUser } from "@clerk/nextjs/server";
 import Footer from "./Footer";
+import Tutorial from "./Tutorial";
 
 const Home = async ({
   searchParams,
@@ -22,7 +23,9 @@ const Home = async ({
       <FloatingNavbar isLoggedIn={isLoggedIn} />
       <Hero />
       <Features />
-      <div id="tutorial">Tutorial</div>
+      <div className="my-20"></div>
+      <Tutorial />
+      <div className="my-20"></div>
       <Footer />
     </div>
   );
