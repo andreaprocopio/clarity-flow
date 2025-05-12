@@ -16,7 +16,7 @@ const Tutorial = () => {
       <div className="relative w-full aspect-video rounded-lg overflow-hidden shadow-lg">
         <video
           className="w-full h-full object-cover"
-          src="/clarity-flow.mp4"
+          src="/explainer-video.mp4"
           autoPlay
           muted
           loop
