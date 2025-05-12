@@ -38,21 +38,18 @@ export default function BaseBlockComponent({
       {/* Inputs row */}
       <div className="flex flex-wrap sm:flex-nowrap items-center gap-2">
         <Input
-          id="subject"
           placeholder="Subject"
           value={value.subject}
           onChange={(e) => handleChange("subject", e.target.value)}
           className="bg-accent border-none flex-1 min-w-0 h-10 text-sm"
         />
         <Input
-          id="verb"
           placeholder="Verb"
           value={value.verb}
           onChange={(e) => handleChange("verb", e.target.value)}
           className="bg-accent border-none flex-1 min-w-0 h-10 text-sm"
         />
         <Input
-          id="object"
           placeholder="Object"
           value={value.object}
           onChange={(e) => handleChange("object", e.target.value)}

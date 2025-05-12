@@ -1,3 +1,17 @@
+export type BaseBlock = {
+  subject: string;
+  verb: string;
+  object: string;
+  negation: boolean;
+}
+
+export const baseBlockInitialValue: BaseBlock = {
+  subject: "",
+  verb: "",
+  object: "",
+  negation: false
+}
+
 export type whQuestionsType = {
   what: string
   who: string
@@ -56,37 +70,9 @@ export const smartActionDefaultValue: SmartAction = {
 }
 
 export type ClarityFlow = {
-  initialStatement: string;
-  whQuestions: whQuestionsType;
-  whQuestionsResult: string;
-  idealSituation: string;
-  gaps: string[];
-  rootCauses: string[];
-  desiredOutcomes: DesiredOutcome[];
-  brainstormedActions: BrainstormedAction[];
-  smartActions: SmartAction[];
+  initialStatement: BaseBlock;
 }
 
 export const clarityFlowInitialValue: ClarityFlow = {
-  initialStatement: "",
-  whQuestions: {
-    what: "",
-    who: "",
-    when: "",
-    how: ""
-  },
-  whQuestionsResult: "",
-  idealSituation: "",
-  gaps: [],
-  rootCauses: [],
-  desiredOutcomes: [],
-  brainstormedActions: [],
-  smartActions: []
-}
-
-export type BaseBlock = {
-  subject: string;
-  verb: string;
-  object: string;
-  negation: boolean;
+  initialStatement: baseBlockInitialValue,
 }

@@ -1,11 +1,11 @@
-import { ClarityForm } from "@/components/ClarityForm";
+import { ClarityFlowComponent } from "@/components/ClarityFlowComponent";
 import React from "react";
 import { WavyBackground } from "@/components/ui/wavy-background";
 
 const ClarityPage = () => {
   return (
     <div className="max-w-lg lg:max-w-3xl xl:max-w-5xl w-full mx-auto flex flex-col gap-10">
-      <ClarityForm />
+      <ClarityFlowComponent />
       <WavyBackground
         containerClassName="absolute top-0 left-0 bottom-0 right-0 -z-10 opacity-50"
         backgroundFill="#090f1c"
