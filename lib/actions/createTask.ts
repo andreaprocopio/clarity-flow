@@ -34,6 +34,8 @@ export const createTask = async (clarityFlow: ClarityFlow) => {
 
 
 function buildTaskFromClarityFlow(userId: string, flow: ClarityFlow) {
+  const lastWhy = flow.whys[flow.whys.length - 1]?.because;
+
   return {
     user_id: userId,
     title: flow.title,
@@ -44,7 +46,7 @@ function buildTaskFromClarityFlow(userId: string, flow: ClarityFlow) {
     initial_statement: flow.initialStatement,
     whys: flow.whys,
     solutions: flow.solutions,
-    checklist: buildChecklist(flow.solutions),
+    checklist: buildChecklist(flow.solutions, lastWhy),
   };
 }
 
@@ -53,11 +55,16 @@ function renderBaseBlock(block: BaseBlock): string {
   return block.negation ? `NOT ${phrase}` : phrase;
 }
 
-function buildChecklist(solutions: Solutions[]): ChecklistItem[] {
-  return [...solutions]
-    .reverse()
-    .map((solution) => ({
-      itemText: renderBaseBlock(solution.if),
-      completed: false,
-    }));
+function buildChecklist(solutions: Solutions[], rootCause: BaseBlock): ChecklistItem[] {
+  const reversed = [...solutions].reverse().map((solution) => ({
+    itemText: renderBaseBlock(solution.if),
+    completed: false,
+  }));
+
+  const invertedRootCause: ChecklistItem = {
+    itemText: renderBaseBlock({ ...rootCause, negation: !rootCause.negation }),
+    completed: false,
+  };
+
+  return [...reversed, invertedRootCause];
 }

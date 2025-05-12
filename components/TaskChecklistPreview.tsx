@@ -8,7 +8,15 @@ interface ChecklistPreviewProps {
 }
 
 const ChecklistPreview = ({ clarityFlow }: ChecklistPreviewProps) => {
-  const checklist = [...clarityFlow.solutions].reverse().map((item) => item.if);
+  const solutions = [...clarityFlow.solutions].reverse().map((item) => item.if);
+  const lastWhy = clarityFlow.whys[clarityFlow.whys.length - 1]?.because;
+
+  const invertedLastWhy = lastWhy && {
+    ...lastWhy,
+    negation: !lastWhy.negation,
+  };
+
+  const checklist = [...solutions, invertedLastWhy].filter(Boolean);
 
   if (checklist.length === 0) return null;
 
