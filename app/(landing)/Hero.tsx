@@ -25,7 +25,7 @@ const Hero = () => {
                 height={60}
                 className="inline-block"
               />
-              ,<br className="md:hidden" /> not chaos.
+              <br className="md:hidden" /> not chaos.
             </p>
             <p className="text-base md:text-lg text-white font-normal inter-var max-w-2xl mx-auto">
               ClarityFlow turns confusion into action{" "}

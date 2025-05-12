@@ -83,3 +83,10 @@ export const clarityFlowInitialValue: ClarityFlow = {
   brainstormedActions: [],
   smartActions: []
 }
+
+export type BaseBlock = {
+  subject: string;
+  verb: string;
+  object: string;
+  negation: boolean;
+}
