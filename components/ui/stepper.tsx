@@ -217,7 +217,7 @@ const defineStepper = <const Steps extends Stepperize.Step[]>(
                     />
                   </div>
                 )}
-                <div className="my-3 flex-1 ps-4">{panel}</div>
+                <div className="my-3 flex-1 md:ps-4">{panel}</div>
               </div>
             )}
           </>
