@@ -1,72 +1,63 @@
-"use server"
+"use server";
 
-import { ClarityFlow } from "../types"
-import { db } from "@/db"
-import { tasksTable } from "@/db/schema"
-import { currentUser } from '@clerk/nextjs/server'
-import { revalidatePath } from "next/cache"
+import { ClarityFlow, Solutions, ChecklistItem, BaseBlock } from "../types";
+import { db } from "@/db";
+import { tasksTable } from "@/db/schema";
+import { currentUser } from "@clerk/nextjs/server";
+import { revalidatePath } from "next/cache";
+import { clarityFlowSchema } from "../zod/baseBlockSchema";
 
 export const createTask = async (clarityFlow: ClarityFlow) => {
   try {
-    const user = await currentUser()
-    if (!user) throw new Error("User not authenticated")
+    const user = await currentUser();
+    if (!user) throw new Error("User not authenticated");
 
-    const tasks = buildTasksFromClarityFlow(user.id, clarityFlow)
-    await db.insert(tasksTable).values(tasks)
-    revalidatePath("/tasks")
+    const validated = clarityFlowSchema.parse(clarityFlow); 
+    const task = buildTaskFromClarityFlow(user.id, validated);
 
-    return { success: true }
+    await db.insert(tasksTable).values(task);
+    revalidatePath("/tasks");
+
+    return { success: true };
   } catch (error) {
-    console.error("Create task error:", error)
-    return { success: false, error: "Error during task creation" }
-  }
-}
-
-function buildTasksFromClarityFlow(userId: string, flow: ClarityFlow) {
-  const {
-    smartActions,
-    gaps,
-    rootCauses,
-    desiredOutcomes,
-    brainstormedActions,
-  } = flow
-
-  return smartActions.map((action, index) => {
-    const {
-      taskTitle,
-      specificDescription,
-      measurableCriteria,
-      whyIsAchievable,
-      whyIsRelevant,
-      startDate,
-      endDate,
-      iconName
-    } = action
-
-    const {
-      whatHasWorked,
-      whatCouldGoWrong,
-      externalResources,
-      simplestStep,
-    } = brainstormedActions[index]
+    console.error("Create task error:", error);
 
     return {
-      user_id: userId,
-      title: taskTitle,
-      gap: gaps[index],
-      root_cause: rootCauses[index],
-      without_problem: desiredOutcomes[index]?.withoutProblem,
-      what_has_worked_before: whatHasWorked,
-      what_could_go_wrong: whatCouldGoWrong,
-      external_resources: externalResources,
-      simplest_step: simplestStep,
-      specific_description: specificDescription,
-      measurable_completion_criteria: measurableCriteria,
-      achievable_description: whyIsAchievable,
-      relevance_description: whyIsRelevant,
-      start_date: startDate,
-      end_date: endDate,
-      icon: iconName
-    }
-  })
+      success: false,
+      error:
+        error instanceof Error
+          ? error.message
+          : "Unexpected error during task creation",
+    };
+  }
+};
+
+
+function buildTaskFromClarityFlow(userId: string, flow: ClarityFlow) {
+  return {
+    user_id: userId,
+    title: flow.title,
+    description: flow.description,
+    icon: flow.iconName,
+    start_date: flow.startDate,
+    end_date: flow.endDate,
+    initial_statement: flow.initialStatement,
+    whys: flow.whys,
+    solutions: flow.solutions,
+    checklist: buildChecklist(flow.solutions),
+  };
+}
+
+function renderBaseBlock(block: BaseBlock): string {
+  const phrase = `${block.subject} ${block.verb} ${block.object}`.trim();
+  return block.negation ? `NOT ${phrase}` : phrase;
+}
+
+function buildChecklist(solutions: Solutions[]): ChecklistItem[] {
+  return [...solutions]
+    .reverse()
+    .map((solution) => ({
+      itemText: renderBaseBlock(solution.if),
+      completed: false,
+    }));
 }

@@ -23,7 +23,7 @@ export default function StepInitialStatement({
     <div className="space-y-6">
       <TypographyMuted
         text="Write a sentence that clearly describes what you are currently not doing or achieving.
-        Keep it specific and action-oriented."
+        Keep it specific and problem-oriented."
       />
       <BaseBlockComponent
         value={clarityFlow.initialStatement}

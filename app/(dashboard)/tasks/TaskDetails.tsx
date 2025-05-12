@@ -8,12 +8,13 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { ArrowUpRight } from "lucide-react";
+import { Edit } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import TaskContext from "./TaskContext";
 import TaskContent from "./TaskContent";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import TaskChecklist from "./TaskChecklist";
 
 interface TaskDetailsProps {
   task: Task;
@@ -23,26 +24,30 @@ const TaskDetails = ({ task }: TaskDetailsProps) => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="ghost" className="h-8 w-8 p-0">
+        <Button variant="ghost" className="h-8 w-8 p-0 cursor-pointer">
           <span className="sr-only">Open task details</span>
-          <ArrowUpRight className="h-4 w-4" />
+          <Edit className="h-4 w-4" />
         </Button>
       </SheetTrigger>
-      <SheetContent>
-        <SheetHeader>
-          <SheetTitle>Task Details</SheetTitle>
-          <SheetDescription>Inspect and edit task details</SheetDescription>
-        </SheetHeader>
-        <Separator />
-        <div className="p-4">
-          <TaskContent task={task} />
-        </div>
-
-        <div className="flex-1 overflow-hidden p-4">
-          <ScrollArea className="h-full w-full">
+      <SheetContent className="flex-1 overflow-hidden">
+        <ScrollArea className="h-full w-full">
+          <SheetHeader>
+            <SheetTitle>Task Details</SheetTitle>
+            <SheetDescription>Inspect and edit task details</SheetDescription>
+          </SheetHeader>
+          <Separator />
+          <div className="p-4">
+            <TaskContent task={task} />
+          </div>
+          <Separator />
+          <div className="p-4">
+            <TaskChecklist task={task} />
+          </div>
+          <Separator />
+          <div className="p-4">
             <TaskContext task={task} />
-          </ScrollArea>
-        </div>
+          </div>
+        </ScrollArea>
       </SheetContent>
     </Sheet>
   );

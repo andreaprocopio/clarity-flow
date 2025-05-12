@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 
@@ -12,36 +12,24 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import type { ClarityFlow, SmartAction } from "@/lib/types";
 
 interface TaskDatePickerProps {
-  index: number;
   propsDate: Date;
-  type: "startDate" | "endDate";
-  setClarityFlow: React.Dispatch<React.SetStateAction<ClarityFlow>>;
-  handleSmartActionChange: (
-    index: number,
-    key: keyof SmartAction,
-    value: string | Date,
-    setClarityFlow: React.Dispatch<React.SetStateAction<ClarityFlow>>
-  ) => void;
+  onDateChange: (date: Date) => void;
 }
 
 export function TaskDatePicker({
-  index,
   propsDate,
-  type,
-  handleSmartActionChange,
-  setClarityFlow,
+  onDateChange,
 }: TaskDatePickerProps) {
-  const [date, setDate] = React.useState<Date>(propsDate);
+  const [date, setDate] = useState<Date>(propsDate);
 
   useEffect(() => {
     setDate(propsDate);
   }, [propsDate]);
 
   useEffect(() => {
-    handleSmartActionChange(index, type, date, setClarityFlow);
+    onDateChange(date);
   }, [date]);
 
   return (

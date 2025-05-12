@@ -24,9 +24,7 @@ interface TaskContentProps {
 }
 
 const TaskContent = ({ task }: TaskContentProps) => {
-  const [specificDescription, setSpecificDescription] = useState(
-    task.specific_description || ""
-  );
+  const [description, setDescription] = useState(task.description || "");
 
   const [title, setTitle] = useState(task.title || "");
   const [startDate, setStartDate] = useState<Date>(task.start_date);
@@ -39,7 +37,7 @@ const TaskContent = ({ task }: TaskContentProps) => {
       ...task,
       title: title,
       icon: icon,
-      specific_description: specificDescription,
+      description: description,
       start_date: startDate,
       end_date: endDate,
     };
@@ -71,8 +69,8 @@ const TaskContent = ({ task }: TaskContentProps) => {
       <div className="space-y-2">
         <Label>Description</Label>
         <Textarea
-          value={specificDescription}
-          onChange={(e) => setSpecificDescription(e.target.value)}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
         />
       </div>
 

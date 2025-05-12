@@ -28,7 +28,7 @@ export function Features() {
             <HelpCircle className="h-4 w-4 text-black dark:text-neutral-400" />
           }
           title="Define the Problem"
-          description="Start by describing what’s bothering you — a challenge, a blocker, or an idea you can’t move forward on."
+          description="Start with a single sentence — define what’s not working using simple logical blocks."
         />
 
         <GridItem
@@ -37,7 +37,7 @@ export function Features() {
             <ListStart className="h-4 w-4 text-black dark:text-neutral-400" />
           }
           title="Guided Reflection"
-          description="ClarityFlow asks you the right questions to uncover root causes and clarify what really needs to change."
+          description="Explore a chain of “why” questions to uncover the logical root cause behind your challenge."
         />
 
         <GridItem
@@ -46,7 +46,7 @@ export function Features() {
             <CheckCircle className="h-4 w-4 text-black dark:text-neutral-400" />
           }
           title="Generate Clear Tasks"
-          description="At the end of the process, ClarityFlow produces one or more well-defined tasks based on your answers — no suggestions, just logical outcomes."
+          description="Reverse the logic of the root cause and build a checklist of simple, actionable steps to solve it."
         />
 
         <GridItem
@@ -55,7 +55,7 @@ export function Features() {
             <CalendarClock className="h-4 w-4 text-black dark:text-neutral-400" />
           }
           title="See What Matters Now"
-          description="Your tasks are listed with due dates and statuses, so you can easily track deadlines, progress, and what's overdue — all based on thoughtful reflection."
+          description="Each task carries its logic, context, and deadline — so you know exactly what it’s solving and why."
         />
 
         <GridItem
@@ -64,7 +64,7 @@ export function Features() {
             <BarChart3 className="h-4 w-4 text-black dark:text-neutral-400" />
           }
           title="Track Your Progress"
-          description="Access a dedicated statistics page where you can monitor trends, completed tasks, overdue items, and more — helping you improve over time."
+          description="View stats on completed tasks, overdue logic flows, and long-term clarity — track how your thinking evolves."
         />
       </ul>
     </div>

@@ -22,7 +22,7 @@ const { Stepper } = defineStepper(
   },
   {
     id: "step-4",
-    title: "Task",
+    title: "Task Details",
     icon: <LayoutList />,
   }
 );
@@ -31,11 +31,17 @@ import StepInitialStatement from "./StepInitialStatement";
 import { ClarityFlow } from "@/lib/types";
 import { clarityFlowInitialValue } from "@/lib/types";
 import { Button } from "./ui/button";
+import StepWhys from "./StepWhys";
+import StepSolutions from "./StepSolutions";
+import StepTask from "./StepTask";
+import CreateTaskButton from "./CreateTaskButton";
 
 export const ClarityFlowComponent = () => {
   const [clarityFlow, setClarityFlow] = useState<ClarityFlow>(
     clarityFlowInitialValue
   );
+
+  console.log(clarityFlow);
 
   return (
     <Stepper.Provider className="space-y-4" variant="vertical" tracking={false}>
@@ -59,25 +65,46 @@ export const ClarityFlowComponent = () => {
                           setClarityFlow={setClarityFlow}
                         />
                       )}
-                      {step.id !== "step-1" && (
-                        <p className="text-xl font-normal">
-                          Content for {step.id}
-                        </p>
+                      {step.id === "step-2" && (
+                        <StepWhys
+                          clarityFlow={clarityFlow}
+                          setClarityFlow={setClarityFlow}
+                        />
+                      )}
+
+                      {step.id === "step-3" && (
+                        <StepSolutions
+                          clarityFlow={clarityFlow}
+                          setClarityFlow={setClarityFlow}
+                        />
+                      )}
+
+                      {step.id === "step-4" && (
+                        <StepTask
+                          clarityFlow={clarityFlow}
+                          setClarityFlow={setClarityFlow}
+                        />
                       )}
                     </div>
                     <Stepper.Controls>
                       <Button
+                        className="cursor-pointer disabled:cursor-not-allowed"
                         variant="secondary"
                         onClick={methods.prev}
                         disabled={methods.isFirst}
                       >
                         Previous
                       </Button>
-                      <Button
-                        onClick={methods.isLast ? methods.reset : methods.next}
-                      >
-                        {methods.isLast ? "Reset" : "Next"}
-                      </Button>
+                      {methods.isLast ? (
+                        <CreateTaskButton clarityFlow={clarityFlow} />
+                      ) : (
+                        <Button
+                          className="cursor-pointer disabled:cursor-not-allowed"
+                          onClick={methods.next}
+                        >
+                          Next
+                        </Button>
+                      )}
                     </Stepper.Controls>
                   </Stepper.Panel>
                 ))}

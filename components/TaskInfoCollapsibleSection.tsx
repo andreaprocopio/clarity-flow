@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -8,7 +8,7 @@ import {
 
 interface TaskInfoCollapsibleSectionProps {
   title: string;
-  content: string;
+  content: string | ReactNode;
 }
 
 const TaskInfoCollapsibleSection = ({

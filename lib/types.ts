@@ -5,6 +5,33 @@ export type BaseBlock = {
   negation: boolean;
 }
 
+export type Why = {
+  why: BaseBlock
+  because: BaseBlock
+}
+
+export type Solutions = {
+  if: BaseBlock
+  then: BaseBlock
+}
+
+export type ChecklistItem = {
+  itemText: string;
+  completed: boolean;
+}
+
+export type ClarityFlow = {
+  initialStatement: BaseBlock;
+  whys: Why[]
+  solutions: Solutions[]
+  title: string;
+  description: string;
+  checklist: ChecklistItem[];
+  startDate: Date;
+  endDate: Date;
+  iconName: string;
+}
+
 export const baseBlockInitialValue: BaseBlock = {
   subject: "",
   verb: "",
@@ -12,67 +39,14 @@ export const baseBlockInitialValue: BaseBlock = {
   negation: false
 }
 
-export type whQuestionsType = {
-  what: string
-  who: string
-  when: string
-  how: string
-}
-
-export type DesiredOutcome = {
-  mainGoal: string;
-  completionCriteria: string;
-  withoutProblem: string;
-}
-
-export const desiredOutcomeDefaultValue: DesiredOutcome = {
-  mainGoal: "",
-  completionCriteria: "",
-  withoutProblem: ""
-}
-
-export type BrainstormedAction = {
-  actions: string;
-  whatHasWorked: string;
-  whatCouldGoWrong: string;
-  externalResources: string;
-  simplestStep: string;
-}
-
-export const brainstormedActionDefaultValue: BrainstormedAction = {
-  actions: "",
-  whatHasWorked: "",
-  whatCouldGoWrong: "",
-  externalResources: "",
-  simplestStep: "",
-}
-
-export type SmartAction = {
-  taskTitle: string;
-  specificDescription: string;
-  measurableCriteria: string;
-  whyIsAchievable: string;
-  whyIsRelevant: string;
-  startDate: Date;
-  endDate: Date;
-  iconName: string;
-}
-
-export const smartActionDefaultValue: SmartAction = {
-  taskTitle: "",
-  specificDescription: "",
-  measurableCriteria: "",
-  whyIsAchievable: "",
-  whyIsRelevant: "",
-  iconName: "list-todo",
-  startDate: new Date(),
-  endDate: new Date()
-}
-
-export type ClarityFlow = {
-  initialStatement: BaseBlock;
-}
-
 export const clarityFlowInitialValue: ClarityFlow = {
   initialStatement: baseBlockInitialValue,
+  whys: [],
+  solutions: [],
+  title: "",
+  description: "",
+  checklist: [],
+  startDate: new Date(),
+  endDate: new Date(),
+  iconName: "list-todo",
 }

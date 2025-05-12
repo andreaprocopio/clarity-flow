@@ -17,7 +17,7 @@ export const updateTask = async (updatedTask: Task) => {
       .set({
         title: updatedTask.title,
         icon: updatedTask.icon,
-        specific_description: updatedTask.specific_description,
+        description: updatedTask.description,
         start_date: updatedTask.start_date,
         end_date: updatedTask.end_date,
       })
