@@ -5,6 +5,7 @@ import { and, gte, lte, eq } from "drizzle-orm";
 import UpcomingDeadlinesCalendar from "./UpcomingDeadlinesCalendar";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { currentUser } from "@clerk/nextjs/server";
 
 interface UpcomingDeadlinesProps {
   start: Date;
@@ -15,11 +16,15 @@ export const UpcomingDeadlines = async ({
   start,
   end,
 }: UpcomingDeadlinesProps) => {
+  const user = await currentUser();
+  if (!user) throw new Error("User not authenticated");
+
   const tasks = await db
     .select()
     .from(tasksTable)
     .where(
       and(
+        eq(tasksTable.user_id, user.id),
         eq(tasksTable.task_state, "TO_DO"),
         gte(tasksTable.end_date, start),
         lte(tasksTable.end_date, end)
