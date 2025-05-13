@@ -5,6 +5,7 @@ import { TypographyMuted } from "@/components/TypographyMuted";
 import { Button } from "@/components/ui/button";
 import { baseBlockInitialValue } from "@/lib/types";
 import BaseBlockRawPhrase from "./BaseBlockRawPhrase";
+import FlowPopover from "./FlowPopover";
 
 type StepWhysProps = {
   clarityFlow: ClarityFlow;
@@ -67,7 +68,12 @@ export default function StepWhys({
               <TypographyMuted text="?" />
             </div>
           </div>
-          <TypographyMuted text="Because: " />
+          <div className="flex gap-2 items-center">
+            {index === 0 && (
+              <FlowPopover popoverText="The 'Because' block should describe something you can change or influence—not external or unchangeable factors." />
+            )}
+            <TypographyMuted text="Because: " />
+          </div>
           <BaseBlockComponent
             value={entry.because}
             onChange={(val) => updateBecauseBlock(index, val)}

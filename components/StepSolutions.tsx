@@ -6,6 +6,7 @@ import { baseBlockInitialValue } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import BaseBlockRawPhrase from "./BaseBlockRawPhrase";
 import SolutionStatement from "./SolutionStatement";
+import FlowPopover from "./FlowPopover";
 
 type StepSolutionsProps = {
   clarityFlow: ClarityFlow;
@@ -76,14 +77,18 @@ export default function StepSolutions({
 
         return (
           <div key={index} className="space-y-2">
-            <TypographyMuted text="If:" />
+            <div className="flex gap-2 items-center">
+              {index === 0 && (
+                <FlowPopover popoverText="The 'If' block should describe an action that logically leads to the 'Then' block." />
+              )}
+              <TypographyMuted text="If:" />
+            </div>
             <BaseBlockComponent
               value={entry.if}
               onChange={(val) => updateIfBlock(index, val)}
             />
             <div className="flex gap-2 items-center">
               <TypographyMuted text="Then:" />
-
               <BaseBlockRawPhrase baseBlock={thenBlock} showCheckbox checked />
             </div>
           </div>
